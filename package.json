@@ -1,0 +1,9 @@
+{
+  "name": "Legend",
+  "version": "1.0.0",
+  "description": "Legend is an open source twitter bot to celebrate the Open Source legends that are part of this world",
+  "main": "index.js",
+  "repository": "https://github.com/axolo-co/legend.git",
+  "author": "Sydney Cohen <chnsydney@gmail.com>",
+  "license": "MIT"
+}
