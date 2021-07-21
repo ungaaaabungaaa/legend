@@ -5,5 +5,8 @@
   "main": "index.js",
   "repository": "https://github.com/axolo-co/legend.git",
   "author": "Sydney Cohen <chnsydney@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@octokit/core": "^3.5.1"
+  }
 }
