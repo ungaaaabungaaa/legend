@@ -1,4 +1,7 @@
 const { Octokit } = require("@octokit/core");
+var moment = require('moment');
+
+const INTERVALS = 6000
 
 async function listPullRequests(params) {
     const {repo, owner} = params;
@@ -8,16 +11,23 @@ async function listPullRequests(params) {
     const resp = await octokit.request('GET /repos/{owner}/{repo}/pulls', {
         owner,
         repo,
-        per_page: 20,
+        per_page: 100,
         state: 'close'
       })
     const { data } = resp;
     for (const pr of data) {
         const prToAdd = {}
-        // TODO only check PR that are updated less than 1hour or 5 min
-        if (isMerged(octokit, owner, repo, pr)) {
-            // console.log(pr)
-            prToAdd.title = pr.title
+
+        if (!pr.merged_at) {
+            continue
+        }
+        var duration = moment().diff(moment(pr.merged_at), 'minutes');
+        // If PR is less than n minutes ago then it should be mentionned
+        if (duration < INTERVALS) {
+            prToAdd.prTitle = pr.title
+            prToAdd.html_url = pr.html_url
+            prToAdd.merged_at = pr.merged_at
+            prToAdd.labels = pr.labels?.map(label => label?.name).join(', ')
             const userInfo = await getUserInfo(octokit, pr.user)
             if (userInfo.twitter === null) {
                 continue
@@ -29,6 +39,7 @@ async function listPullRequests(params) {
     return list
 }
 
+// this verifies that a PR has been merged
 async function isMerged(octokit, owner, repo, pr) {
     const merged = await octokit.request('GET /repos/{owner}/{repo}/pulls/{pull_number}/merge', {
         owner,

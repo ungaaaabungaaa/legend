@@ -6,7 +6,11 @@
   "repository": "https://github.com/axolo-co/legend.git",
   "author": "Sydney Cohen <chnsydney@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
-    "@octokit/core": "^3.5.1"
+    "@octokit/core": "^3.5.1",
+    "moment": "^2.29.1"
   }
 }
