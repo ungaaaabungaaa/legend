@@ -1,41 +1,30 @@
+const Twitter = require('twitter-lite');
+const Twitterclient = new Twitter({
+    subdomain: "api",
+    version: "1.1",
+    consumer_key: process.env.LEGEND_API_KEY_TWITTER,
+    consumer_secret: process.env.LEGEND_API_SECRET_KEY_TWITTER,
+    access_token_key: process.env.LEGEND_ACCESS_TOKEN_TWITTER,
+    access_token_secret: process.env.LEGEND_ACCESS_TOKEN_SECRET_TWITTER,
+})
+
 const owners = require('./repo.json');
 const { listPullRequests } = require('./utils');
 const { createTwitterMessage } = require('./composer')
-
-const prList = [
-    {
-      prTitle: 'chore(i18n,curriculum): processed translations',
-      html_url: 'https://github.com/freeCodeCamp/freeCodeCamp/pull/42957',
-      merged_at: '2021-07-21T15:23:20Z',
-      labels: 'crowdin-sync,scope: curriculum,scope: i18n',
-      user: {
-        twitter: 'freeCodeCamp',
-        login: 'camperbot',
-        name: 'camperbot',
-        avatar: 'https://avatars.githubusercontent.com/u/13561988?v=4'
-      }
-    },
-    {
-      prTitle: 'chore(i18n,curriculum): processed translations',
-      html_url: 'https://github.com/freeCodeCamp/freeCodeCamp/pull/42943',
-      merged_at: '2021-07-20T16:05:24Z',
-      labels: 'crowdin-sync,scope: curriculum,scope: i18n',
-      user: {
-        twitter: 'freeCodeCamp',
-        login: 'camperbot',
-        name: 'camperbot',
-        avatar: 'https://avatars.githubusercontent.com/u/13561988?v=4'
-      }
-    }
-  ]
 
 async function main() {
     for (const owner in owners) {
         const prList = await listPullRequests({owner, repo: owners[owner]})
         for (const pr of prList) {
-            const message = createTwitterMessage({...pr, repo: owners[owner]})
-            console.log("🐦", message)
-            // TODO tweet message
+            const status = createTwitterMessage({...pr, repo: owners[owner]})
+            console.log("🐦", status)
+            const resp = await Twitterclient.post("statuses/update", {
+                status,
+              });
+            console.log("resp", resp)
+            if (!resp.created_at) {
+                console.log("🔴 error tweeting status", status)
+            }
         }
     }
 
