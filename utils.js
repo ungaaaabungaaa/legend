@@ -1,19 +1,19 @@
 const { Octokit } = require("@octokit/core");
 var moment = require('moment');
 
-const INTERVALS = 6000
+const INTERVALS = 600//6000
 
 async function listPullRequests(params) {
-    const {repo, owner} = params;
+    const { repo, owner } = params;
     const list = []
-    console.log(repo,owner)
-    const octokit = new Octokit({ auth: process.env.LEGEND_AUTH});
+    console.log(repo, owner)
+    const octokit = new Octokit({ auth: process.env.LEGEND_AUTH });
     const resp = await octokit.request('GET /repos/{owner}/{repo}/pulls', {
         owner,
         repo,
         per_page: 100,
         state: 'close'
-      })
+    })
     const { data } = resp;
     for (const pr of data) {
         const prToAdd = {}
@@ -32,7 +32,7 @@ async function listPullRequests(params) {
             if (userInfo.twitter === null) {
                 continue
             }
-            prToAdd.user = {...userInfo}
+            prToAdd.user = { ...userInfo }
             list.push(prToAdd)
         }
     }
@@ -45,7 +45,7 @@ async function isMerged(octokit, owner, repo, pr) {
         owner,
         repo,
         pull_number: pr.number
-      })
+    })
     if (merged.status === 204) {
         return true
     } else {
@@ -56,9 +56,9 @@ async function isMerged(octokit, owner, repo, pr) {
 async function getUserInfo(octokit, user) {
     const resp = await octokit.request('GET /users/{username}', {
         username: user.login
-      })
+    })
     const { data } = resp;
-    return {twitter: data.twitter_username, login: data.login, name: data.name, avatar: data.avatar_url}
+    return { twitter: data.twitter_username, login: data.login, name: data.name, avatar: data.avatar_url }
 }
 
 module.exports = { listPullRequests }
