@@ -15,14 +15,15 @@ const { blackList } = require('./blackList');
 
 async function main() {
     for (const owner in owners) {
-        const repo = owners[owner]
+        const repo = owners[owner].repo
+        const repoTwitter = owners[owner].twitter
         const prList = await listPullRequests({owner, repo })
         for (const pr of prList) {
             const { user: {twitter: twitterHandle}} = pr;            
             if (blackList.includes(twitterHandle.toLowerCase())) {
                 continue
             }
-            const status = createTwitterMessage({...pr, repo })
+            const status = createTwitterMessage({...pr, repo, repoTwitter })
             console.log("🐦", status)
             let resp;
             // resp = await Twitterclient.post("statuses/update", {
