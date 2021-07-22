@@ -29,7 +29,7 @@ async function initializeMediaUpload(status) {
       total_bytes: mediaSize,
       media_type: mediaType
     })
-    return await appendFileChunk(res.media_id_string, status)
+    await appendFileChunk(res.media_id_string, status)
   } catch (e) {
     console.log("error in initialize : ", e)
   }
@@ -43,7 +43,7 @@ async function appendFileChunk(mediaId, status) {
       media: mediaData,
       segment_index: 0
     })
-    return await finalizeUpload(mediaId, status);
+    await finalizeUpload(mediaId, status);
   } catch (e) {
     console.log("error append : ", e)
   }
@@ -55,7 +55,7 @@ async function finalizeUpload(mediaId, status) {
       command: "FINALIZE",
       media_id: mediaId
     })
-    return await publishStatusUpdate(mediaId, status)
+    await publishStatusUpdate(mediaId, status)
   } catch (e) {
     console.log('error in finalize :', e)
   }

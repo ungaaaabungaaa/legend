@@ -16,8 +16,8 @@ function createTwitterMessage(params) {
     const greetings = greetingsAll[Math.floor(Math.random() * greetingsAll.length)]
 
     let message = `${greetings} @${twitter} ${greetingsEmoji}, `;
-
     message += `your pull request "${prTitle2}" has been merged on ${repo}! `;
+
     let conclusion;
     if (cleanHtmlUrl.length < 80)
         conclusion = conclusionAll[Math.floor(Math.random() * conclusionAll.length)] + ' ' + cleanHtmlUrl + ` @${repoTwitter}.`;
@@ -25,7 +25,6 @@ function createTwitterMessage(params) {
         conclusion = conclusionAll[Math.floor(Math.random() * conclusionAll.length)] + ` @${repoTwitter}.`;
 
     message += conclusion;
-
     return message
 }
 
