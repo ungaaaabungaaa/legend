@@ -2,7 +2,7 @@
 
 const { main } = require(".");
 
-module.exports.hello = async (event) => {
+module.exports.main = async (event) => {
   await main()
   return {
     statusCode: 200,

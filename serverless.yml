@@ -11,8 +11,8 @@ provider:
   lambdaHashingVersion: 20201221
 
 functions:
-  hello:
-    handler: handler.hello
+  main:
+    handler: handler.main
     environment:
       LEGEND_AUTH: ${param:LEGEND_AUTH}
       LEGEND_API_KEY_TWITTER: ${param:LEGEND_API_KEY_TWITTER}
