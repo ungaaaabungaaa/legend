@@ -10,21 +10,28 @@ const Twitterclient = new Twitter({
 
 const owners = require('./repo.json');
 const { listPullRequests } = require('./utils');
-const { createTwitterMessage } = require('./composer')
+const { createTwitterMessage } = require('./composer');
+const { blackList } = require('./blackList');
 
 async function main() {
     for (const owner in owners) {
-        const prList = await listPullRequests({owner, repo: owners[owner]})
+        const repo = owners[owner]
+        const prList = await listPullRequests({owner, repo })
         for (const pr of prList) {
-            const status = createTwitterMessage({...pr, repo: owners[owner]})
-            console.log("🐦", status)
-            const resp = await Twitterclient.post("statuses/update", {
-                status,
-              });
-            console.log("resp", resp)
-            if (!resp.created_at) {
-                console.log("🔴 error tweeting status", status)
+            const { user: {twitter: twitterHandle}} = pr;            
+            if (blackList.includes(twitterHandle.toLowerCase())) {
+                continue
             }
+            const status = createTwitterMessage({...pr, repo })
+            console.log("🐦", status)
+            let resp;
+            // resp = await Twitterclient.post("statuses/update", {
+            //     status,
+            //   });
+            if (!resp?.created_at) {
+                console.log("🔴 error tweeting:'", status, "'")
+            }
+
         }
     }
 
