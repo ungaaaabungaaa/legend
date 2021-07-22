@@ -1,0 +1,25 @@
+org: cosydney
+app: legend
+service: legend
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  timeout: 30
+  lambdaHashingVersion: 20201221
+
+functions:
+  hello:
+    handler: handler.hello
+    environment:
+      LEGEND_AUTH: ${param:LEGEND_AUTH}
+      LEGEND_API_KEY_TWITTER: ${param:LEGEND_API_KEY_TWITTER}
+      LEGEND_API_SECRET_KEY_TWITTER: ${param:LEGEND_API_SECRET_KEY_TWITTER}
+      LEGEND_ACCESS_TOKEN_TWITTER: ${param:LEGEND_ACCESS_TOKEN_TWITTER}
+      LEGEND_ACCESS_TOKEN_SECRET_TWITTER: ${param:LEGEND_ACCESS_TOKEN_SECRET_TWITTER}
+    # events:
+    #   - schedule: rate(1 minute)
+  
+    
