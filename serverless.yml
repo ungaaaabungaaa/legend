@@ -7,7 +7,7 @@ frameworkVersion: '2'
 provider:
   name: aws
   runtime: nodejs14.x
-  timeout: 30
+  timeout: 300
   lambdaHashingVersion: 20201221
 
 functions:
@@ -19,7 +19,7 @@ functions:
       LEGEND_API_SECRET_KEY_TWITTER: ${param:LEGEND_API_SECRET_KEY_TWITTER}
       LEGEND_ACCESS_TOKEN_TWITTER: ${param:LEGEND_ACCESS_TOKEN_TWITTER}
       LEGEND_ACCESS_TOKEN_SECRET_TWITTER: ${param:LEGEND_ACCESS_TOKEN_SECRET_TWITTER}
-    # events:
-    #   - schedule: rate(1 minute)
+    events:
+      - schedule: rate(20 minute)
   
     
