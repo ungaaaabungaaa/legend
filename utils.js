@@ -1,7 +1,7 @@
 const { Octokit } = require("@octokit/core");
 var moment = require('moment');
 
-const INTERVALS = 20
+const INTERVALS = 60
 
 async function listPullRequests(params) {
     const { repo, owner } = params;

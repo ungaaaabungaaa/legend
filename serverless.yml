@@ -20,6 +20,6 @@ functions:
       LEGEND_ACCESS_TOKEN_TWITTER: ${param:LEGEND_ACCESS_TOKEN_TWITTER}
       LEGEND_ACCESS_TOKEN_SECRET_TWITTER: ${param:LEGEND_ACCESS_TOKEN_SECRET_TWITTER}
     events:
-      - schedule: rate(20 minutes)
+      - schedule: rate(60 minutes)
   
     
