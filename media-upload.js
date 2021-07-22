@@ -74,4 +74,18 @@ async function publishStatusUpdate(mediaId, status) {
   }
 }
 
-module.exports = { initializeMediaUpload }
+async function publishStatusUpdateOnly(status) {
+  const apiClient = newClient()
+  try {
+    const res = await apiClient.post("statuses/update", {
+      status,
+    })
+    console.log("res", res)
+    return res;
+  } catch (e) {
+    console.log("error publish: ", e)
+    return e
+  }
+}
+
+module.exports = { initializeMediaUpload, publishStatusUpdateOnly }

@@ -1,11 +1,16 @@
 const owners = require("./repo.json");
 const { listPullRequests } = require("./utils");
 const { createTwitterMessage } = require("./composer");
-const { initializeMediaUpload } = require('./media-upload')
+const { initializeMediaUpload, publishStatusUpdateOnly } = require('./media-upload')
 const { blackList } = require("./blackList");
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 async function tweetToPrList(params) {
   const { prList, repo, repoTwitter } = params;
+  const tweetPromise = []
   for (const pr of prList) {
     const {
       user: { twitter: twitterHandle },
@@ -14,8 +19,17 @@ async function tweetToPrList(params) {
       continue;
     }
     const status = createTwitterMessage({ ...pr, repo, repoTwitter });
+    // TODO
+    // initializeMediaUpload
+    tweetPromise.push(publishStatusUpdateOnly(status))
     console.log("🐦", status);
-    await initializeMediaUpload(status)
+  }
+  try {
+    console.log('#', tweetPromise.length, 'to tweet')
+    await Promise.all(tweetPromise)
+    await sleep(30)
+  } catch (error) {
+    console.log("Tweet Promise Error", error)
   }
 }
 
