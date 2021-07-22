@@ -4,7 +4,6 @@ const {
     conclusionAll
 } = require('./message-library/message-content');
 
-
 // limit: 280 char per twitter message
 function createTwitterMessage(params) {
     const { user: { twitter }, prTitle, repo, html_url: htmlUrl, repoTwitter } = params;
