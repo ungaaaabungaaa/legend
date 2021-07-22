@@ -13,7 +13,8 @@ const { listPullRequests } = require("./utils");
 const { createTwitterMessage } = require("./composer");
 const { blackList } = require("./blackList");
 
-async function tweetToPrList(prList) {
+async function tweetToPrList(params) {
+  const { prList, repo, repoTwitter } = params;
   for (const pr of prList) {
     const {
       user: { twitter: twitterHandle },
@@ -38,7 +39,7 @@ async function main() {
     const repo = owners[owner].repo;
     const repoTwitter = owners[owner].twitter;
     const prList = await listPullRequests({ owner, repo });
-    tweetToPrList(prList);
+    tweetToPrList({ prList, repo, repoTwitter });
   }
 }
 
