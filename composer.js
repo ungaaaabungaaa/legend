@@ -15,7 +15,7 @@ function createTwitterMessage(params) {
         greetingsEmojiAll[Math.floor(Math.random() * greetingsEmojiAll.length)];
     const greetings = greetingsAll[Math.floor(Math.random() * greetingsAll.length)]
 
-    let message = `${greetings} @${twitter} ${greetingsEmoji}, `;
+    let message = `${greetings} ${twitter} ${greetingsEmoji}, `;
     message += `your pull request "${prTitle2}" has been merged on ${repo}! `;
 
     let conclusion;
