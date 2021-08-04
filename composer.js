@@ -20,7 +20,7 @@ function createTwitterMessage(params) {
 
     let conclusion;
     if (cleanHtmlUrl.length < 80)
-        conclusion = conclusionAll[Math.floor(Math.random() * conclusionAll.length)] + ' ' + cleanHtmlUrl + ` @${repoTwitter}.`;
+        conclusion = conclusionAll[Math.floor(Math.random() * conclusionAll.length)] + ' ' + cleanHtmlUrl + ` ${repoTwitter}.`;
     else
         conclusion = conclusionAll[Math.floor(Math.random() * conclusionAll.length)] + ` @${repoTwitter}.`;
 
