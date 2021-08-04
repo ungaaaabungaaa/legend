@@ -1,4 +1,6 @@
 {
     "freeCodeCamp": {"repo": "freeCodeCamp", "twitter": "freeCodeCamp"},
-    "axolo-co": {"repo": "legend", "twitter": "axolo_co"}
+    "axolo-co": {"repo": "legend", "twitter": "axolo_co"},
+    "meilisearch": {"repo": "MeiliSearch", "twitter": "meilisearch"},
+    "nodejs": {"repo": "node", "twitter": "nodejs"}
 }
