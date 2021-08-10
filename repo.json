@@ -3,5 +3,9 @@
     "axolo-co": {"repo": "legend", "twitter": "axolo_co"},
     "meilisearch": {"repo": "MeiliSearch", "twitter": "meilisearch"},
     "nodejs": {"repo": "node", "twitter": "nodejs"},
-    "microsoft": {"repo": "vscode", "twitter": "code"}
+    "microsoft": {"repo": "vscode", "twitter": "code"},
+    "facebook": {"repo": "react-native", "twitter": "reactnative"},
+    "flutter": {"repo": "flutter", "twitter": "FlutterDev"},
+    "kubernetes": {"repo": "kubernetes", "twitter": "kubernetesio"},
+    "tensorflow": {"repo": "tensorflow", "twitter": "TensorFlow"}
 }
