@@ -21,7 +21,7 @@ async function tweetToPrList(params) {
     const status = createTwitterMessage({ ...pr, repo, repoTwitter });
     // TODO
     // initializeMediaUpload
-    // tweetPromise.push(publishStatusUpdateOnly(status))
+    tweetPromise.push(publishStatusUpdateOnly(status))
     console.log("🐦", status);
   }
   try {
@@ -39,7 +39,7 @@ async function main() {
     const repoTwitter = owners[owner].twitter;
     const prList = await listPullRequests({ owner, repo });
     console.log("prList.length", prList.length)
-    if (prList)
+    if (prList && prList.length > 0)
       tweetToPrList({ prList, repo, repoTwitter });
   }
 }
