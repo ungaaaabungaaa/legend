@@ -38,7 +38,6 @@ async function main() {
     const repo = owners[owner].repo;
     const repoTwitter = owners[owner].twitter;
     const prList = await listPullRequests({ owner, repo });
-    console.log("prList.length", prList.length)
     if (prList && prList.length > 0)
       tweetToPrList({ prList, repo, repoTwitter });
   }
